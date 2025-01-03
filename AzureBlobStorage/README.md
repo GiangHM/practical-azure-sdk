@@ -1,0 +1,1 @@
+This example is to work with blob storages

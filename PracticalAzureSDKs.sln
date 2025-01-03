@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureBlobStorage", "AzureBlobStorage\AzureBlobStorage.csproj", "{6CDD694A-B648-47A5-B4A8-D23F97D31E18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureTableStorage", "AzureTableStorage\AzureTableStorage.csproj", "{02D85FE1-E0AD-4DB5-8E39-97922E1FDB77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenTelemetryDistroExtension", "OpenTelemetryDistroExtension\OpenTelemetryDistroExtension.csproj", "{8B5DC1BD-E531-44B5-9E84-B753EB397254}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{B25B2358-E066-44FF-89CD-11D47E73E9EE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagementAPI", "Samples\ArticleManagementAPI\ArticleManagementAPI.csproj", "{BC03984A-EFFC-4827-926A-28FF1996B6F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobSasTokenGenerationAf", "Samples\BlobSasTokenGenerationAf\BlobSasTokenGenerationAf.csproj", "{E53819E4-10AF-4DD3-9D49-C317D7C5020B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagementWebApp", "Samples\ArticleManagementWebApp\ArticleManagementWebApp.csproj", "{EB00CF79-1202-4983-A82D-68206855E744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureRedisCache", "AzureRedisCache\AzureRedisCache.csproj", "{2A35A46E-7058-4061-91C2-CD0E03573DAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CDD694A-B648-47A5-B4A8-D23F97D31E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDD694A-B648-47A5-B4A8-D23F97D31E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDD694A-B648-47A5-B4A8-D23F97D31E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDD694A-B648-47A5-B4A8-D23F97D31E18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D85FE1-E0AD-4DB5-8E39-97922E1FDB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D85FE1-E0AD-4DB5-8E39-97922E1FDB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D85FE1-E0AD-4DB5-8E39-97922E1FDB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D85FE1-E0AD-4DB5-8E39-97922E1FDB77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5DC1BD-E531-44B5-9E84-B753EB397254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5DC1BD-E531-44B5-9E84-B753EB397254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5DC1BD-E531-44B5-9E84-B753EB397254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5DC1BD-E531-44B5-9E84-B753EB397254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC03984A-EFFC-4827-926A-28FF1996B6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC03984A-EFFC-4827-926A-28FF1996B6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC03984A-EFFC-4827-926A-28FF1996B6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC03984A-EFFC-4827-926A-28FF1996B6F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E53819E4-10AF-4DD3-9D49-C317D7C5020B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53819E4-10AF-4DD3-9D49-C317D7C5020B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53819E4-10AF-4DD3-9D49-C317D7C5020B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53819E4-10AF-4DD3-9D49-C317D7C5020B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB00CF79-1202-4983-A82D-68206855E744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB00CF79-1202-4983-A82D-68206855E744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB00CF79-1202-4983-A82D-68206855E744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB00CF79-1202-4983-A82D-68206855E744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC03984A-EFFC-4827-926A-28FF1996B6F0} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
+		{E53819E4-10AF-4DD3-9D49-C317D7C5020B} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
+		{EB00CF79-1202-4983-A82D-68206855E744} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5C9BAF1-64BC-4077-A351-228FDF3F5876}
+	EndGlobalSection
+EndGlobal
