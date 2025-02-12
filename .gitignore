@@ -275,8 +275,5 @@ __pycache__/
 
 # Healthcheck
 healthchecksdb
-WebApp/Bollore.Tom.WebApp/wwwroot/
-Bollore.Tom.API.Authorization/healthchecksdb-shm
-Bollore.Tom.API.Authorization/healthchecksdb-wal
 /Samples/ArticleManagementAPI/Properties/PublishProfiles
 /Samples/ArticleManagementAPI/Properties/ServiceDependencies/vic-demo-app - Zip Deploy
