@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagementWebApp", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureRedisCache", "AzureRedisCache\AzureRedisCache.csproj", "{2A35A46E-7058-4061-91C2-CD0E03573DAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisCacheAndAfInProc", "Samples\RedisCacheAndAfInProc\RedisCacheAndAfInProc.csproj", "{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A35A46E-7058-4061-91C2-CD0E03573DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{BC03984A-EFFC-4827-926A-28FF1996B6F0} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 		{E53819E4-10AF-4DD3-9D49-C317D7C5020B} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 		{EB00CF79-1202-4983-A82D-68206855E744} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
+		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C9BAF1-64BC-4077-A351-228FDF3F5876}
