@@ -45,8 +45,8 @@ namespace ArticleManagementAPI.Controllers
             if (entities == null) 
             {
                 entities = await _topicTableService.GetAllData();
-                await _cache.SetAsync(entities
-                    , CacheKey_All
+                await _cache.SetAsync(CacheKey_All
+                    , entities
                     , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(2))
                     );
             }
@@ -71,8 +71,8 @@ namespace ArticleManagementAPI.Controllers
             {
                 var entities = await _topicTableService.GetAllData();
                 entity = entities?.FirstOrDefault(x=> x.TopicCode == code);
-                await _cache.SetAsync(entity
-                    , TopicPrefix + code
+                await _cache.SetAsync(TopicPrefix + code
+                    , entity
                     , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(2))
                     );
             }

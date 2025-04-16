@@ -3,6 +3,7 @@ using AzureRedisCache.Models;
 using AzureRedisCache.Services;
 using AzureRedisCache.Settings;
 using Microsoft.Azure.StackExchangeRedis;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,7 +27,7 @@ namespace AzureRedisCache.Extensions
             services.Configure<RedisOptions>(configuration.GetSection("AzureRedisCache"));
             services.TryAddEnumerable(ServiceDescriptor.Singleton<IValidateOptions<RedisOptions>, ValidateRedisOptions>());
 
-            services.AddStackExchangeRedisCache(options =>
+            services.AddRedisCache(options =>
             {
                 var userConfigs = services.BuildServiceProvider().GetService<IOptions<RedisOptions>>().Value;
                 options.InstanceName = userConfigs.InstanceName ?? "DefaultRedisCache";
@@ -41,8 +42,16 @@ namespace AzureRedisCache.Extensions
                     return connection;
                 };
             });
+        }
 
-            services.AddTransient<IWrapperCacheService, WrapperCacheService>();
+        private static IServiceCollection AddRedisCache(this IServiceCollection services, Action<RedisCacheOptions> setupAction)
+        {
+            services.AddOptions();
+            services.Configure(setupAction);
+
+            services.AddSingleton<IWrapperCacheService, WrapperCacheService>();
+
+            return services;
         }
 
         private static async Task<ConfigurationOptions> GetConfigsAsync(RedisOptions option)
