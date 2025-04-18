@@ -44,8 +44,8 @@ namespace RedisCacheAndAfInProc
             if (valuefromCache == null)
             {
                 valuefromCache = "Decription for" + topicCode;
-                await _cache.SetAsync(valuefromCache
-                    , cacheKey
+                await _cache.SetAsync(cacheKey
+                    , valuefromCache
                     , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(2)));
                 log.LogInformation("Set value since no value from cache");
             }

@@ -12,7 +12,7 @@ namespace RedisCacheAndAfInProc
     {
         protected override void DoConfigureServices(IServiceCollection services)
         {
-            services.AddAzureRedisWithOptions();
+            services.AddAzureRedisWithOptionsAsync();
         }
     }
 }

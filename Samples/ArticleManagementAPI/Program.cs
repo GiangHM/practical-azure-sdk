@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAzureTableStorage();
 builder.Services.AddTransient<ITopicTableService, TopicTableService>();
-builder.Services.AddAzureRedisWithOptions();
+builder.Services.AddAzureRedisWithOptionsAsync();
 var sasServiceBaseAddress = builder.Configuration.GetValue<string>("SasTokenService:BaseAddress");
 
 builder.Services.AddHttpClient("SasGeneratorService", httpClient =>

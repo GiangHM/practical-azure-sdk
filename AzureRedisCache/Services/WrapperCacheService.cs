@@ -45,12 +45,15 @@ namespace AzureRedisCache.Services
 
         private readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         private long _lastConnectTicks = DateTimeOffset.UtcNow.Ticks;
-
+        private IConnectionMultiplexer _connectionMultiplexer;
         public WrapperCacheService(IOptions<RedisCacheOptions> optionsAccessor
-            , ILogger<WrapperCacheService> logger)
+            , ILogger<WrapperCacheService> logger
+            ,
+IConnectionMultiplexer connectionMultiplexer)
         {
             _options = optionsAccessor.Value;
             _logger = logger;
+            _connectionMultiplexer = connectionMultiplexer;
         }
 
         public async Task SetAsync<T>(string cacheKey, T data)
@@ -309,11 +312,16 @@ namespace AzureRedisCache.Services
                 var cache = _cache;
                 if (cache is null)
                 {
-                    IConnectionMultiplexer connection;
-                    connection = await _options.ConnectionMultiplexerFactory().ConfigureAwait(false);
-
-                    PrepareConnection(connection);
-                    cache = _cache = connection.GetDatabase();
+                    IConnectionMultiplexer connection = _connectionMultiplexer;
+                    if (_options.ConnectionMultiplexerFactory is null)
+                    {
+                        cache = _cache = connection.GetDatabase();
+                    }
+                    else
+                    {
+                        connection = await _options.ConnectionMultiplexerFactory().ConfigureAwait(false);
+                        cache = _cache = connection.GetDatabase();
+                    }
                 }
                 Debug.Assert(_cache != null);
                 return cache;
