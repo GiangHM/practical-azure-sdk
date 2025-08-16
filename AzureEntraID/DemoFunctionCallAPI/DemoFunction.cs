@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Security.Policy;
+using Microsoft.Identity.Client;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace DemoFunctionCallAPI;
 
 public class DemoFunction
@@ -14,14 +12,16 @@ public class DemoFunction
     private readonly ILogger<DemoFunction> _logger;
     private IHttpClientFactory _httpClientFactory;
     private IConfiguration _configuration;
-
+    private readonly IConfidentialClientApplication _msalClient;
     public DemoFunction(ILogger<DemoFunction> logger
         , IHttpClientFactory httpClientFactory
-        , IConfiguration configuration)
+        , IConfiguration configuration
+        , IConfidentialClientApplication msalClient)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
+        _msalClient = msalClient;
     }
 
     [Function("Function1")]
@@ -47,12 +47,24 @@ public class DemoFunction
         return new OkObjectResult(response);
     }
 
+    #region Developer implement Get Token and Call Downstream API by himself
     private async Task<string> CallVictorNetCoreDemoApi(TokenInformation token)
     {
         using (var client = _httpClientFactory.CreateClient())
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:44317/Secure/GetString");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7153/Secure/GetString");
             request.Headers.Add("Authorization", $"{token.token_type} {token.access_token}");
+            var response = await client.SendAsync(request);
+            string responseString = await response.Content.ReadAsStringAsync();
+            return responseString;
+        }
+    }
+    private async Task<string> CallVictorNetCoreDemoApi(AuthenticationResult token)
+    {
+        using (var client = _httpClientFactory.CreateClient())
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7153/OnBehalf/GetWeatherForecastObo");
+            request.Headers.Add("Authorization", $"{token.TokenType} {token.AccessToken}");
             var response = await client.SendAsync(request);
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;
@@ -88,5 +100,28 @@ public class DemoFunction
         public int expires_in { get; set; }
         public int ext_expires_in { get; set; }
         public string access_token { get; set; }
+    }
+    #endregion
+
+    /// <summary>
+    /// This function uses MSAL to acquire a token and calls the API by user implemted method.
+    /// We can use the 'Microsoft.Identity.Web and Microsoft.Identity.Web.DownstreamApi' packages:
+    /// But this would loss the ability to control the token acquisition process and the API call.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
+    [Function("Function2UsingMSAL")]
+    public async Task<IActionResult> RunFunction2Async([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
+    {
+        _logger.LogInformation("C# HTTP trigger function processed a request.");
+
+        _logger.LogInformation("Request token");
+        var scope = _configuration["scope"];
+        AuthenticationResult msalAuthenticationResult = await _msalClient.AcquireTokenForClient(
+            new string[] { scope }).ExecuteAsync();
+
+        var response = await CallVictorNetCoreDemoApi(msalAuthenticationResult);
+
+        return new OkObjectResult(response);
     }
 }

@@ -1,26 +1,51 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))
-    .EnableTokenAcquisitionToCallDownstreamApi()
-    .AddInMemoryTokenCaches()
-    .AddDownstreamApi("DownstreamApi", option =>
+    .AddJwtBearer(options =>
     {
-        option.BaseUrl = builder.Configuration["DownstreamApi:BaseUrl"];
-        option.Scopes = new[] { builder.Configuration["DownstreamApi:Scopes"] ?? "api://71bd2d53-2fe5-4b07-a029-bc449553461f/.default" };
+        var config = builder.Configuration.GetSection("AzureAd");
+        options.Authority = $"https://login.microsoftonline.com/{config["TenantId"]}/v2.0";
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuers = new[]
+            {
+                $"https://login.microsoftonline.com/{config["TenantId"]}/v2.0",
+            },
+            ValidateAudience = true,
+            ValidAudiences = new[]
+            {
+                config["ClientId"]
+            },
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.FromMinutes(5)
+        };
+        // Add Admin role to every valid token
+        //options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+        //{
+        //    OnTokenValidated = context =>
+        //    {
+        //        if (context.Principal?.Identity is System.Security.Claims.ClaimsIdentity identity)
+        //        {
+        //            identity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, "Admin")); // for demo
+
+        //            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+        //            logger.LogInformation("Added Admin role to token - for demo!");
+        //        }
+        //        return Task.CompletedTask;
+        //    }
+        //};
     });
 
-builder.Services.AddHttpClient();
-// Configure authorization policies
 builder.Services.AddAuthorization(options =>
 {
 });
@@ -31,10 +56,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Demo API",
+        Title = "Downstream API demo",
         Version = "v1",
-        Description = "A security demo with Microsoft Entra ID authentication",
-        
+        Description = "A security demo"
     });
 
     // Configure JWT Bearer authentication for Swagger
@@ -70,7 +94,6 @@ builder.Services.AddSwaggerGen(c =>
         c.IncludeXmlComments(xmlPath);
     }
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,7 +101,6 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -100,37 +122,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-// Authentication must come before authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.RequireAuthorization()
-.WithName("GetWeatherForecast");
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

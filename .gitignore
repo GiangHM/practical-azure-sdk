@@ -278,3 +278,4 @@ healthchecksdb
 /Samples/ArticleManagementAPI/Properties/PublishProfiles
 /Samples/ArticleManagementAPI/Properties/ServiceDependencies/vic-demo-app - Zip Deploy
 AzureEntraID/VictorNetCoreApi/appsettings.Development.json
+/AzureEntraID/DownstreamApiDemo/appsettings.Development.json

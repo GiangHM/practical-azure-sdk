@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VictorNetCoreApi
+namespace VictorNetCoreApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]

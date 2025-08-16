@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8 d17.14
+VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictorNetCoreApi", "VictorNetCoreApi.csproj", "{987EA6FD-B8D6-1C56-2B5D-95AFC6E46ABC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoFunctionCallAPI", "..\DemoFunctionCallAPI\DemoFunctionCallAPI.csproj", "{6B384DE1-E642-448C-889C-C2CAF7283A89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownstreamApiDemo", "..\DownstreamApiDemo\DownstreamApiDemo.csproj", "{332F5214-DA03-4E60-AB11-B398F4E9DAB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6B384DE1-E642-448C-889C-C2CAF7283A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B384DE1-E642-448C-889C-C2CAF7283A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B384DE1-E642-448C-889C-C2CAF7283A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332F5214-DA03-4E60-AB11-B398F4E9DAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332F5214-DA03-4E60-AB11-B398F4E9DAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332F5214-DA03-4E60-AB11-B398F4E9DAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332F5214-DA03-4E60-AB11-B398F4E9DAB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
