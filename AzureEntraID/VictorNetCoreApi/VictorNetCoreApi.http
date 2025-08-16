@@ -1,0 +1,6 @@
+@VictorNetCoreApi_HostAddress = http://localhost:5179
+
+GET {{VictorNetCoreApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
