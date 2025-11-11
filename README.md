@@ -42,3 +42,6 @@ To get started with any project in this repository, follow these steps:
 
 Follow the instructions specific to the project you are working on. For example, in the **Azure Blob Storage** project, you can configure your chosen method (Managed Identity or Connection String) and test the interaction with your Azure Blob Storage instance.
 
+
+## License
+This project is licensed under the MIT License.
