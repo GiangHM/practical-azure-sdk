@@ -1,14 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using AzureRedisCache.Services;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace RedisCacheAndAfInProc
 {
@@ -20,15 +19,20 @@ namespace RedisCacheAndAfInProc
         {
             _cache = cache;
         }
-        [FunctionName("GetTopicDescription")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        
+        [Function("GetTopicDescription")]
+        public async Task<HttpResponseData> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req,
+            FunctionContext context)
         {
+            var log = context.GetLogger("GetTopicDescription");
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string prefixTopicCode = "TopicCode";
-            string topicCode = req.Query["Code"];
+            
+            // Parse query parameters from HttpRequestData
+            var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+            string topicCode = query["Code"];
             if (string.IsNullOrEmpty(topicCode))
                 topicCode = "S01";
 
@@ -46,22 +50,28 @@ namespace RedisCacheAndAfInProc
                 valuefromCache = "Decription for" + topicCode;
                 await _cache.SetAsync(cacheKey
                     , valuefromCache
-                    , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(2)));
+                    , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(2.0)));
                 log.LogInformation("Set value since no value from cache");
             }
 
-            return new OkObjectResult(valuefromCache);
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            await response.WriteAsJsonAsync(valuefromCache);
+            return response;
         }
 
-        [FunctionName("GetMultipleTopicDescription")]
-        public async Task<IActionResult> Run1(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        [Function("GetMultipleTopicDescription")]
+        public async Task<HttpResponseData> Run1(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req,
+            FunctionContext context)
         {
+            var log = context.GetLogger("GetMultipleTopicDescription");
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string prefixTopicCode = "TopicCode";
-            string topicCode = req.Query["Code"];
+            
+            // Parse query parameters from HttpRequestData
+            var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+            string topicCode = query["Code"];
             if (string.IsNullOrEmpty(topicCode))
                 topicCode = "S01";
 
@@ -89,12 +99,11 @@ namespace RedisCacheAndAfInProc
                     {cacheKey2, valuefromCache2}
                 };
                 await _cache.SetAsync(inputDict
-                    , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(2)));
+                    , () => new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(2.0)));
                 log.LogInformation("Set value since no value from cache");
             }
             else
             {
-
                 valuefromCache = a.Value.FirstOrDefault(x => x.Key == cacheKey).Value;
                 valuefromCache2 = a.Value.FirstOrDefault(x => x.Key == cacheKey).Value;
 
@@ -102,7 +111,9 @@ namespace RedisCacheAndAfInProc
                 log.LogInformation("Value 2 from cache: {0}", valuefromCache2);
             }
 
-            return new OkObjectResult(valuefromCache);
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            await response.WriteAsJsonAsync(valuefromCache);
+            return response;
         }
     }
 }
