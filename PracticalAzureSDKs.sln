@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureBlobStorage", "AzureBlobStorage\AzureBlobStorage.csproj", "{6CDD694A-B648-47A5-B4A8-D23F97D31E18}"
 EndProject
@@ -20,6 +20,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureRedisCache", "AzureRedisCache\AzureRedisCache.csproj", "{2A35A46E-7058-4061-91C2-CD0E03573DAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisCacheAndAfInProc", "Samples\RedisCacheAndAfInProc\RedisCacheAndAfInProc.csproj", "{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictorNetCoreApi", "AzureEntraID\VictorNetCoreApi\VictorNetCoreApi.csproj", "{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownstreamApiDemo", "AzureEntraID\DownstreamApiDemo\DownstreamApiDemo.csproj", "{07F17C22-F4FF-15BE-7D52-96C1804F46DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoFunctionCallAPI", "AzureEntraID\DemoFunctionCallAPI\DemoFunctionCallAPI.csproj", "{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntraID", "EntraID", "{EDB9EFD1-47DD-47BD-99AA-F3855B6A3B83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +67,18 @@ Global
 		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F17C22-F4FF-15BE-7D52-96C1804F46DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F17C22-F4FF-15BE-7D52-96C1804F46DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F17C22-F4FF-15BE-7D52-96C1804F46DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F17C22-F4FF-15BE-7D52-96C1804F46DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +88,10 @@ Global
 		{E53819E4-10AF-4DD3-9D49-C317D7C5020B} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 		{EB00CF79-1202-4983-A82D-68206855E744} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 		{EF2F5246-2E0E-41F0-A8E9-C00E08D3F21D} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
+		{82AE5A62-01C3-3665-8EC8-0F110EEE5BC0} = {EDB9EFD1-47DD-47BD-99AA-F3855B6A3B83}
+		{07F17C22-F4FF-15BE-7D52-96C1804F46DF} = {EDB9EFD1-47DD-47BD-99AA-F3855B6A3B83}
+		{93F0793F-52CB-C8EC-64B4-8FCAD3B2E487} = {EDB9EFD1-47DD-47BD-99AA-F3855B6A3B83}
+		{EDB9EFD1-47DD-47BD-99AA-F3855B6A3B83} = {B25B2358-E066-44FF-89CD-11D47E73E9EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C9BAF1-64BC-4077-A351-228FDF3F5876}
